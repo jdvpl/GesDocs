@@ -16,6 +16,10 @@ async def registrar(usuario:db.dataBase.UsuarioPN):
     else:
         raise HTTPException(status_code=400,detail="Este usuario ya existe en la base de datos")
 
+@app.post("/login-usuario")
+async def login(usuario:db.dataBase.UsuarioPN):
+    
+
 @app.get('/documentos/{email}')   #prueba
 async def obtenerDocumentos(email):
     return db.dataBase.obtener_Docs_email(email)
