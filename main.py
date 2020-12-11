@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from db.dataBase import lista_usuarios,obtener_usuario,UsuarioPN,DocsPn,registrar_usuario,crear_doc,obtener_Docs_email
+from db.dataBase import lista_usuarios,obtener_usuario,UsuarioPN,DocsPn,registrar_usuario,crear_docs,obtener_Docs_email
 from models.models import UserIn
 from models.repositorios import obtener_doc_con_email
 
@@ -30,7 +30,7 @@ async def login(usuario:UserIn):
         return {"Autenticado":True}
 
 
-@app.get('/documentos-usuario/')  
+@app.get('/documentos-usuario/')   #prueba
 async def obtener_documentos(email:str):
     usuario=obtener_doc_con_email(email)
     if usuario is None:
@@ -41,7 +41,7 @@ async def obtener_documentos(email:str):
 
 @app.post("/crear-documento/")
 async def crear_doc(documento:DocsPn):
-    documento_exitoso=crear_doc(documento)
+    documento_exitoso=crear_docs(documento)
     if documento_exitoso:
         return {"msg":"Documento Creado Correctamente"}
     else:

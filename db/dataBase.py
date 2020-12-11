@@ -64,7 +64,7 @@ def obtener_Docs_email(email: str):
     return lista_docs
 
 
-def crear_doc(documentoPn:DocsPn):
+def crear_docs(documentoPn:DocsPn):
     if documentoPn.id_docPN in documentosPn:
         return False
     else:
