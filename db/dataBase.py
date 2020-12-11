@@ -23,11 +23,11 @@ UsuariosPn={
 
 DocumentosPn: Dict[int, DocsPn]
 DocumentosPn={
-    1: DocsPn(**{"id_docPN":1,"name_doc":"SOAT","frenov":date(2021,1,22),"fvenc":date(2021,1,23),"falarm":date(2021,1,22),"email":"pepita@gmail.com"}),
-    2: DocsPn(**{"id_docPN":2,"name_doc":"Licencia de conducir","frenov":date(2022,11,30),"fvenc":date(2022,11,30),"falarm":date(2022,11,15),"email":"pepita@gmail.com"}),
-    3: DocsPn(**{"id_docPN":3,"name_doc":"poliza de medicina prepagada","frenov":'2020-12-20',"fvenc":'2020-12-20',"falarm":'2020-12-12',"email":"juanito@gmail.com"}),
-    4: DocsPn(**{"id_docPN":4,"name_doc":"SOAT","frenov":'2021-03-12',"fvenc":'2021-03-12',"falarm":'2021-03-12',"email":"juanito@gmail.com"}),
-    5: DocsPn(**{"id_docPN":5,"name_doc":"ASODOCS","frenov":'2020-04-30',"fvenc":'2020-05-07',"falarm":'2020-04-25',"email":"juanito@gmail.com"})  
+    1: DocsPn(**{"id_docPN":1,"name_doc":"SOAT","frenov":2021-1-22,"fvenc":2021-1-23,"falarm":2021-122,"email":"pepita@gmail.com"}),
+    2: DocsPn(**{"id_docPN":2,"name_doc":"Licencia de conducir","frenov":2022-11-30,"fvenc":2022-11-30,"falarm":2022-11-15,"email":"pepita@gmail.com"}),
+    3: DocsPn(**{"id_docPN":3,"name_doc":"poliza de medicina prepagada","frenov":2020-12-20,"fvenc":2020-12-20,"falarm":2020-12-12,"email":"juanito@gmail.com"}),
+    4: DocsPn(**{"id_docPN":4,"name_doc":"SOAT","frenov":2021-3-12,"fvenc":2021-3-12,"falarm":2021-3-12,"email":"juanito@gmail.com"}),
+    5: DocsPn(**{"id_docPN":5,"name_doc":"ASODOCS","frenov":2020-4-30,"fvenc":2020-5-7,"falarm":2020-4-25,"email":"juanito@gmail.com"})  
 
 }
 
