@@ -4,12 +4,12 @@ from models.models import UserIn
 from models.repositorios import obtener_doc_con_email
 
 app = FastAPI()
-@app.get('/usuarios')   #prueba
+@app.get('/usuarios/')   #prueba
 async def obtenerUsuarios():
     return lista_usuarios()
     
 
-@app.post("/registrar-usuario")
+@app.post("/registrar-usuario/")
 async def registrar(usuario:UsuarioPN):
     registro_exitoso=registrar_usuario(usuario)
     if registro_exitoso:
@@ -17,7 +17,7 @@ async def registrar(usuario:UsuarioPN):
     else:
         raise HTTPException(status_code=400,detail="Este usuario ya existe en la base de datos")
 
-@app.post("/login-usuario")
+@app.post("/login-usuario/")
 async def login(usuario:UserIn):
     login_usuario_exito=obtener_usuario(usuario.email)
 
@@ -30,14 +30,13 @@ async def login(usuario:UserIn):
         return {"Autenticado":True}
 
 
-@app.get('/documentos-usuario')   #prueba
+@app.get('/documentos-usuario/')  
 async def obtener_documentos(email:str):
-    documento=obtener_doc_con_email(email)
-    if documento is None:
+    usuario=obtener_doc_con_email(email)
+    if usuario is None:
         raise HTTPException(status_code=400, detail='Usuario no encontrado')
     else:
-        documento
-        print(documento)
+        return usuario
 
 
 @app.post("/crear-documento/")

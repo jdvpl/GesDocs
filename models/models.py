@@ -8,4 +8,4 @@ class UserIn(BaseModel):
 
 
 class ContactoConEmail(UsuarioPN):
-    DocumentosPn: List[DocsPn]
+    documentosPn: List[DocsPn]
