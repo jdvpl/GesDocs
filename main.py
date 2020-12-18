@@ -1,49 +1,23 @@
-from fastapi import FastAPI, HTTPException
-from db.dataBase import lista_usuarios,obtener_usuario,UsuarioPN,DocsPn,registrar_usuario,crear_docs,obtener_Docs_email
-from models.models import UserIn
-from models.repositorios import obtener_doc_con_email
+from fastapi import Depends, FastAPI
 
-app = FastAPI()
-@app.get('/usuarios/')   #prueba
-async def obtenerUsuarios():
-    return lista_usuarios()
-    
+from routers.user_router import router as router_users
+from routers.documents_router import router as router_documents
 
-@app.post("/registrar-usuario/")
-async def registrar(usuario:UsuarioPN):
-    registro_exitoso=registrar_usuario(usuario)
-    if registro_exitoso:
-        return {"msg":"Usuario Creado Correctamente"}
-    else:
-        raise HTTPException(status_code=400,detail="Este usuario ya existe en la base de datos")
+api = FastAPI()
 
-@app.post("/login-usuario/")
-async def login(usuario:UserIn):
-    login_usuario_exito=obtener_usuario(usuario.email)
+from fastapi.middleware.cors import CORSMiddleware
 
-    if login_usuario_exito==None:
-        raise HTTPException(status_code=404, detail="El usuario no existe")
-    
-    if login_usuario_exito.password != usuario.password:
-        return {"msg":"La constraseña esta erronea"}
-    else:
-        return {"Autenticado":True}
+origins = [
+    "http://localhost.tiangolo.com", "https://localhost.tiangolo.com",
+    "http://localhost", "http://localhost:8080", "http://127.0.0.1:8000", "http://localhost:8000",
+    "http://127.0.0.1:8081","http://localhost:8081", "http://127.0.0.1:8080","http://localhost:8080",
+    "https://ges-docs.herokuapp.com/"
+]
 
+api.add_middleware(
+    CORSMiddleware, allow_origins=origins,
+    allow_credentials=True, allow_methods=["*"], allow_headers=["*"]
+)
 
-@app.get('/documentos-usuario/')   #prueba
-async def obtener_documentos(email:str):
-    usuario=obtener_doc_con_email(email)
-    if usuario is None:
-        raise HTTPException(status_code=400, detail='Usuario no encontrado')
-    else:
-        return usuario
-
-
-@app.post("/crear-documento/")
-async def crear_doc(documento:DocsPn):
-    documento_exitoso=crear_docs(documento)
-    if documento_exitoso:
-        return {"msg":"Documento Creado Correctamente"}
-    else:
-        raise HTTPException(status_code=400,detail="Este documento ya existe en la base de datos")
-
+api.include_router(router_users)
+api.include_router(router_documents)
