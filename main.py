@@ -2,8 +2,18 @@ from fastapi import FastAPI, HTTPException
 from db.dataBase import lista_usuarios,obtener_usuario,UsuarioPN,DocsPn,registrar_usuario,crear_docs,obtener_Docs_email
 from models.models import UserIn
 from models.repositorios import obtener_doc_con_email
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+origins=["http://localhost", "http://localhost:8080", "http://localhost:8081"]
+
+app.add_middleware(
+    CORSMiddleware,allow_origins=origins,
+    allow_credentials=True,allow_methods=["*"],allow_headers=["*"],
+    )
+
+
 @app.get('/usuarios/')   #prueba
 async def obtenerUsuarios():
     return lista_usuarios()
@@ -22,12 +32,12 @@ async def login(usuario:UserIn):
     login_usuario_exito=obtener_usuario(usuario.email)
 
     if login_usuario_exito==None:
-        raise HTTPException(status_code=404, detail="El usuario no existe")
+        return {"msg":"El usuario no existe"}
     
     if login_usuario_exito.password != usuario.password:
         return {"msg":"La constraseña esta erronea"}
     else:
-        return {"Autenticado":True}
+        return {"msg":"Ingreso Exitoso"}
 
 
 @app.get('/documentos-usuario/')   #prueba
