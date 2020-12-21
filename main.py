@@ -13,12 +13,10 @@ app.add_middleware(
     allow_credentials=True,allow_methods=["*"],allow_headers=["*"],
     )
 
-
 @app.get('/usuarios/')   #prueba
 async def obtenerUsuarios():
     return lista_usuarios()
     
-
 @app.post("/registrar-usuario/")
 async def registrar(usuario:UsuarioPN):
     registro_exitoso=registrar_usuario(usuario)
@@ -26,7 +24,6 @@ async def registrar(usuario:UsuarioPN):
         return {"msg":"Usuario Creado Correctamente"}
     else:
         raise HTTPException(status_code=400,detail="Este usuario ya existe en la base de datos")
-
 @app.post("/login-usuario/")
 async def login(usuario:UserIn):
     login_usuario_exito=obtener_usuario(usuario.email)
@@ -39,7 +36,6 @@ async def login(usuario:UserIn):
     else:
         return {"msg":"Ingreso Exitoso"}
 
-
 @app.get('/documentos-usuario/')   #prueba
 async def obtener_documentos(email:str):
     usuario=obtener_doc_con_email(email)
@@ -47,7 +43,6 @@ async def obtener_documentos(email:str):
         raise HTTPException(status_code=400, detail='Usuario no encontrado')
     else:
         return usuario
-
 
 @app.post("/crear-documento/")
 async def crear_doc(documento:DocsPn):
