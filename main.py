@@ -23,7 +23,7 @@ async def registrar(usuario:UsuarioPN):
     if registro_exitoso:
         return {"msg":"Usuario Creado Correctamente"}
     else:
-        raise HTTPException(status_code=400,detail="Este usuario ya existe en la base de datos")
+        return {"msg":"Este usuario ya existe en la base de datos"}
 @app.post("/login-usuario/")
 async def login(usuario:UserIn):
     login_usuario_exito=obtener_usuario(usuario.email)
