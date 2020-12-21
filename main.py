@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-origins=["http://localhost", "http://localhost:8080", "http://localhost:8081"]
+origins=["http://localhost", "http://localhost:8080", "http://localhost:8081","https://ges-docs.herokuapp.com"]
 
 app.add_middleware(
     CORSMiddleware,allow_origins=origins,
@@ -25,12 +25,11 @@ async def registrar(usuario:UsuarioPN):
     else:
         return {"msg":"Este usuario ya existe en la base de datos"}
 @app.post("/login-usuario/")
+
 async def login(usuario:UserIn):
     login_usuario_exito=obtener_usuario(usuario.email)
-
     if login_usuario_exito==None:
         return {"msg":"El usuario no existe"}
-    
     if login_usuario_exito.password != usuario.password:
         return {"msg":"La constraseña esta erronea"}
     else:
