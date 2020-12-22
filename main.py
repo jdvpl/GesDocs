@@ -23,14 +23,17 @@ async def registrar(usuario:UsuarioPN):
     if registro_exitoso:
         return {"msg":"Usuario Creado Correctamente"}
     else:
+        raise HTTPException(status_code=404, detail="El usuario Ya existe en la Base de datos")
         return {"msg":"Este usuario ya existe en la base de datos"}
 @app.post("/login-usuario/")
 
 async def login(usuario:UserIn):
     login_usuario_exito=obtener_usuario(usuario.email)
     if login_usuario_exito==None:
+        raise HTTPException(status_code=404, detail="El usuario no existe")
         return {"msg":"El usuario no existe"}
     if login_usuario_exito.password != usuario.password:
+        raise HTTPException(status_code=403, detail="Error de autenticacion")
         return {"msg":"La constraseña esta erronea"}
     else:
         return {"msg":"Ingreso Exitoso"}
