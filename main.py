@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-origins=["http://localhost", "http://localhost:8080", "http://localhost:8081","https://ges-docs.herokuapp.com"]
+origins=["http://localhost", "http://localhost:8080", "http://localhost:8081","https://ges-docs.herokuapp.com","https://ges-docs-frontend.herokuapp.com"]
 
 app.add_middleware(
     CORSMiddleware,allow_origins=origins,
