@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from db.dataBase import lista_usuarios,obtener_usuario,UsuarioPN,DocsPn,registrar_usuario,crear_docs,obtener_Docs_email
+from db.dataBase import lista_usuarios,obtener_usuario,UsuarioPN,DocsPn,registrar_usuario,crear_docs,obtener_Docs_email,documentosPn
 from models.models import UserIn
 from models.repositorios import obtener_doc_con_email
 from fastapi.middleware.cors import CORSMiddleware
@@ -54,3 +54,12 @@ async def crear_doc(documento:DocsPn):
     else:
         raise HTTPException(status_code=400,detail="Este documento ya existe en la base de datos")
 
+
+
+@app.delete("/documento-eliminar/")
+async def borrar(id: int):
+    if id in documentosPn:
+        del documentosPn[id]
+        return {"msg":"Se elimino el documento"}
+    else:
+        raise HTTPException(status_code=404, detail="El Documento no existe en la base de datos")
