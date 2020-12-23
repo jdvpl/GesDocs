@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from db.dataBase import lista_usuarios,obtener_usuario,UsuarioPN,DocsPn,registrar_usuario,crear_docs,obtener_Docs_email
+from db.dataBase import lista_usuarios,obtener_usuario,UsuarioPN,DocsPn,registrar_usuario,crear_docs,obtener_Docs_email,documentosPn
 from models.models import UserIn
 from models.repositorios import obtener_doc_con_email
 from fastapi.middleware.cors import CORSMiddleware
@@ -25,7 +25,6 @@ async def registrar(usuario:UsuarioPN):
         return {"msg":"Usuario Creado Correctamente"}
     else:
         raise HTTPException(status_code=404, detail="El usuario Ya existe en la Base de datos")
-        return {"msg":"Este usuario ya existe en la base de datos"}
 @app.post("/login-usuario/")
 
 async def login(usuario:UserIn):
@@ -35,14 +34,13 @@ async def login(usuario:UserIn):
         return {"msg":"El usuario no existe"}
     if login_usuario_exito.password != usuario.password:
         raise HTTPException(status_code=403, detail="Error de autenticacion")
-        return {"msg":"La constraseña esta erronea"}
     else:
         return {"msg":"Ingreso Exitoso"}
 
 @app.get('/documentos-usuario/')   #prueba
 async def obtener_documentos(email:str):
     usuario=obtener_doc_con_email(email)
-    if usuario is None:
+    if usuario == None:
         raise HTTPException(status_code=400, detail='Usuario no encontrado')
     else:
         return usuario
@@ -55,3 +53,13 @@ async def crear_doc(documento:DocsPn):
     else:
         raise HTTPException(status_code=400,detail="Este documento ya existe en la base de datos")
 
+
+@app.delete("/documento-eliminar/")
+async def borrar(id: int):
+    if id in documentosPn:
+        del documentosPn[id]
+        return {"msg":"Se elimino el documento"}
+    else:
+        raise HTTPException(status_code=404, detail="El Documento no existe en la base de datos")
+
+    

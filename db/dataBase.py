@@ -143,4 +143,17 @@ def crear_docs(documentoPn:DocsPn):
     return True
 
 
+def obtener_Docs_email(email: str):
+    lista_docs = []
+    for documento in documentosPn.values():
+        if documento.email == email:
+            lista_docs.append(documento)
+    return lista_docs
+
+
+def eliminar_doc(id):
+    if id in documentosPn.keys():
+        del documentosPn[id]
+    else:
+        return {"msg":"El docuemnto no pudo ser eliminado"}
 
